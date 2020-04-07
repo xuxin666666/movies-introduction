@@ -1,0 +1,73 @@
+.anc{
+    float: right;
+    margin: 20px;
+}
+#div0{
+    position: relative;
+    float: left; 
+    width: 80%;
+    margin: 20px 20px 20px 50px
+}
+#div01{
+    margin: 20px;
+    height: 300px;
+}
+#div2{
+    margin: 20px;
+}
+#div3{
+    float: right; 
+    margin: 5px; 
+    position: relative
+}
+#div4{
+    margin: 20px;
+    position: relative;
+    width: 75%;
+    float: left;
+}
+#h1{
+    color: #0080ff
+}
+p{
+    text-indent: 30px;
+    margin: 5px;
+    position: relative;
+    overflow: hidden;
+}
+.t1{
+    font-weight: 600;
+}
+.t2{
+    margin: 5px;
+    text-indent: 10px;
+}
+#img1{
+    right: 10px;
+    margin: 15px;
+    height: 300px;
+    float: right;
+}
+#img2{
+    height: 450px
+}
+#img3{
+    margin: 0 15px 0 15px;
+    float: right;
+    width: 480px;
+}
+#img4{
+    height: 300px
+}
+#plu0{
+    left: 80%; 
+    height: 100%;
+}
+#plu1,
+#plu2,
+#plu3,
+#plu4,
+#plu5{
+    color: #6fb6fd;
+    font-size: 20px;
+}

@@ -1,0 +1,39 @@
+#container {
+    border: 1px solid rgb(231, 127, 217);
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    margin: 15px;
+    height: 310px;
+    width: 184px;
+    transition: all 0.5s ease;
+    /* padding: 0; */
+}
+
+
+
+#head {
+    text-indent: 0;
+    height: 30px;
+    font-size: 13px;
+    padding: 1px;
+    text-align: center;
+    margin: 0;
+    top: 0;
+}
+
+#img {
+    position: absolute;
+    top: 30px;
+    margin: 0;
+    height: 280px;
+    width: 184px;
+    transition: all 0.5s ease;
+
+}
+
+
+.box :hover{
+    opacity: 0.9;
+    transform:scale(1.03);
+}
