@@ -13,23 +13,23 @@ export default class MovieChara extends React.Component {
     }
 
     componentWillMount() {
-        // const data = require('../json/moviechara.json');
-        // setTimeout(() => {
-        //     this.setState({
-        //         moviedetail: data.subjects,
-        //         isLoading: false
-        //     })
-        // }, 500)
-        fetch('http://localhost:8000/chara')
-        .then(response => response.json())
-        .then(data => {
-            setTimeout(() => {
-                this.setState({
-                    isLoading: false,
-                    moviedetail: data
-                })
-            }, 500)
-        })
+        const data = require('../json/moviechara.json');
+        setTimeout(() => {
+            this.setState({
+                moviedetail: data.subjects,
+                isLoading: false
+            })
+        }, 500)
+        // fetch('http://localhost:8000/chara')
+        // .then(response => response.json())
+        // .then(data => {
+        //     setTimeout(() => {
+        //         this.setState({
+        //             isLoading: false,
+        //             moviedetail: data
+        //         })
+        //     }, 500)
+        // })
     }
 
     render() {
@@ -50,7 +50,7 @@ export default class MovieChara extends React.Component {
         } else {
             return <div>
                 {this.state.moviedetail.map((Item) => {
-                    return <MovieCharaItem {...Item}  key={Item.Id}></MovieCharaItem>
+                    return <MovieCharaItem {...Item}  key={Item.id}></MovieCharaItem>
                 })}
             </div>
         }

@@ -11,9 +11,9 @@ export default class MovieCharaItem extends React.Component {
 
     render() {
         return <div id="div14">
-            <img src={'image/' + this.props.Image} alt="" id="img15" />
-            <h2>{this.props.Name}</h2>
-            <p>{this.props.Content}</p>
+            <img src={'image/' + this.props.image} alt="" id="img15" />
+            <h2>{this.props.name}</h2>
+            <p>{this.props.content}</p>
         </div>
     }
 }

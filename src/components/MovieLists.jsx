@@ -17,13 +17,13 @@ export default class MovieLists extends React.Component {
         this.LoadMovieDetail()
     }
 
-    componentWillReceiveProps(){
+    componentWillReceiveProps() {
         this.setState({
             isLoading: true
-        }, function(){
+        }, function () {
             this.LoadMovieDetail()
         })
-        
+
     }
 
     render() {
@@ -33,44 +33,46 @@ export default class MovieLists extends React.Component {
     }
 
     LoadMovieDetail = () => {
-        // const data = require('../json/movieDetail' + window.location.hash.split('/')[3] + '.json')
-        // setTimeout(() => {
-        //     this.setState({
-        //         isLoading: false,
-        //         moviedetail: data
+        const data = require('../json/movieDetail' + window.location.hash.split('/')[3] + '.json')
+        console.log(data, this)
+        setTimeout(() => {
+            this.setState({
+                isLoading: false,
+                moviedetail: data
+            })
+        }, 1000)
+        // const url = 'http://localhost:8000/content/' + window.location.hash.split('/')[3]
+        // fetch(url)
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         setTimeout(() => {
+        //             this.setState({
+        //                 isLoading: false,
+        //                 moviedetail: data
+        //             })
+        //         }, 500)
         //     })
-        // }, 1000)
-        const url = 'http://localhost:8000/content/' + window.location.hash.split('/')[3]
-        fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            setTimeout(() => {
-                this.setState({
-                    isLoading: false,
-                    moviedetail: data
-                })
-            }, 500)
-        })
     }
 
     LandDetails = () => {
-        if(this.state.isLoading){
+        if (this.state.isLoading) {
             return <Spin tip="Loading...">
-            <Alert
-                message="Alert message title"
-                description="Further details about the context of this alert."
-                type="info"
-            />
-        </Spin>
-        }else if(window.location.hash.split('/')[3] <= 3){
-            const data = JSON.parse(this.state.moviedetail.Data)
+                <Alert
+                    message="Alert message title"
+                    description="Further details about the context of this alert."
+                    type="info"
+                />
+            </Spin>
+        } else if (window.location.hash.split('/')[3] <= 3) {
+            // const data = JSON.parse(this.state.moviedetail.Data)
+            const data = this.state.moviedetail
             return <div id="div11">
                 <h1 id="h1">{data.head}</h1>
                 <div id="div12">
-                <video src={'video/' + data.video} id="video1" controls/>
+                    <video src={'video/' + data.video} id="video1" controls />
                 </div>
                 <Divider orientation="left" id="plu1">基本信息</Divider>
-                <img src={'image/'+ data.image1} alt="" id="img12"/>
+                <img src={'image/' + data.image1} alt="" id="img12" />
                 {(data.content1 || []).map((e, index) => {
                     return <p key={index}>{e}</p>
                 })}
@@ -80,8 +82,8 @@ export default class MovieLists extends React.Component {
                 {(data.content2 || []).map((e, index) => {
                     return <p key={index}>{e}</p>
                 })}
-        </div>
-        }else{
+            </div>
+        } else {
             return <div>
                 <h2>暂无内容</h2>
             </div>

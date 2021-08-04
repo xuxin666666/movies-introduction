@@ -2,8 +2,7 @@
 import "antd/dist/antd.css";
 import MovieItem from './MovieItem.jsx';
 import '../css/movieIntro.css';
-import { Divider } from 'antd';
-import { Anchor } from 'antd';
+import { Divider, Anchor } from 'antd';
 import React from 'react';
 
 const { Link } = Anchor;
@@ -18,24 +17,28 @@ export default class MovieIntro extends React.Component {
     }
 
     componentWillMount() {
-        // const data = require("../json/app.json");
-        // setTimeout(() => {
-        //     this.setState({
-        //         movies: data.subjects,
-        //         isLoading: false
-        //     })
-        // }, 500)
-        fetch('http://localhost:8000/intro')
-            .then(response => response.json())
-            .then(data => {
-                setTimeout(() => {
-                    this.setState({
-                        isLoading: false,
-                        movies: data
-                    })
-                }, 500)
+        const data = require("../json/app.json");
+        setTimeout(() => {
+            this.setState({
+                movies: data.subjects,
+                isLoading: false
             })
+        }, 500)
+        // fetch('http://localhost:8000/intro')
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         setTimeout(() => {
+        //             this.setState({
+        //                 isLoading: false,
+        //                 movies: data
+        //             })
+        //         }, 500)
+        //     })
     }
+
+    handleAnchorClick = (e,link) => {
+        e.preventDefault();
+    };
 
     render() {
         return <div>
@@ -54,17 +57,17 @@ export default class MovieIntro extends React.Component {
             </Spin>
         } else {
             return <div>
-                <Anchor className="anc">
-                    <Link href="#/movie/introduction/#h1" title="1 魁拔" ></Link>
-                    <Link href="#/movie/introduction/#plu1" title="2 基本信息" />
-                    <Link href="#/movie/introduction/#plu2" title="3 故事介绍" />
-                    <Link href="#/movie/introduction/#plu3" title="4 剧情设定" >
-                        <Link href="#/movie/introduction/#h31" title="4.1 上篇" />
-                        <Link href="#/movie/introduction/#h32" title="4.2 中篇" />
-                        <Link href="#/movie/introduction/#h33" title="4.3 下篇" />
+                <Anchor className="anc" onClick={this.handleAnchorClick}>
+                    <Link href="#h1" title="1 魁拔" />
+                    <Link href="#plu1" title="2 基本信息" />
+                    <Link href="#plu2" title="3 故事介绍" />
+                    <Link href="#plu3" title="4 剧情设定" >
+                        <Link href="#h31" title="4.1 上篇" />
+                        <Link href="#h32" title="4.2 中篇" />
+                        <Link href="#h33" title="4.3 下篇" />
                     </Link>
-                    <Link href="#/movie/introduction/#plu4" title="5 播出信息" />
-                    <Link href="#/movie/introduction/#plu5" title="6 动画音乐" />
+                    <Link href="#plu4" title="5 播出信息" />
+                    <Link href="#plu5" title="6 动画音乐" />
                 </Anchor>
                 <Divider type="vertical" id="plu0" />
                 <div id="div0">
@@ -90,10 +93,10 @@ export default class MovieIntro extends React.Component {
                         <p>平静安详的元泱境界，每隔333年，总会有一个神秘而恐怖的异常生物重生，它就是魁拔！魁拔的每一次出现，都会给元泱境界带来巨大的灾难！即便是天界的神族，也在劫难逃。在天地两界各种力量的全力打击下，魁拔一次次被消灭，但又总是按333年的周期重新出现。魁拔纪元1664年，天神经过精确测算后，在第六代魁拔苏醒前一刻对其进行毁灭性打击。但谁都没有想到，由于一个差错导致新一代魁拔成功地逃脱了致命一击。很快，天界魁拔司和地界神圣联盟均探测到了魁拔依然生还的迹象。因此，找到魁拔，彻底消灭魁拔，再一次成了各地热血勇士的终极目标。</p>
                         <p>在偏远的兽国窝窝乡，蛮大人和蛮吉每天为取得象征成功和光荣的妖侠纹耀而刻苦修炼，却把他们生活的村庄搅得鸡犬不宁。村民们绞尽脑汁把他们赶走。一天，消灭魁拔的征兵令突然传到窝窝乡，村长趁机怂恿蛮大人和蛮吉从军参战。然而，在这个一切都凭纹耀说话的世界，仅凭蛮大人现有的一块杂牌纹耀，不要说参军，就连住店的资格都没有。受尽歧视的蛮吉和蛮大人决定，混上那艘即将启程去消灭魁拔的巨型战舰，直接挑战魁拔，用热血换取至高的荣誉。</p>
                     </div>
-                    <div id="div3" style={{}}>
+                    <div id="div3" style={{float: 'right'}}>
                         <div>
                             {this.state.movies.map(Item => {
-                                return <MovieItem {...Item} key={Item.Id} history={this.props.history}></MovieItem>
+                                return <MovieItem {...Item} key={Item.id} history={this.props.history}></MovieItem>
                             })}
                         </div>
                     </div>
