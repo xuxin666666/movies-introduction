@@ -1,6 +1,7 @@
 import React from "react";
 import { Spin, Alert } from 'antd';
 import { Divider } from 'antd';
+import axios from 'axios'
 import '../css/MovieLists.css';
 
 export default class MovieLists extends React.Component {
@@ -13,18 +14,22 @@ export default class MovieLists extends React.Component {
 
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.LoadMovieDetail()
     }
 
-    componentWillReceiveProps() {
+    UNSAFE_componentWillReceiveProps() {
+        clearTimeout(this.timer)
         this.setState({
             isLoading: true
-        }, function () {
-            this.LoadMovieDetail()
-        })
-
+        }, () => this.LoadMovieDetail())
     }
+
+    componentWillUnmount(){
+        clearTimeout(this.timer)
+    }
+
+
 
     render() {
         return <div>
@@ -32,26 +37,26 @@ export default class MovieLists extends React.Component {
         </div>
     }
 
-    LoadMovieDetail = () => {
-        const data = require('../json/movieDetail' + window.location.hash.split('/')[3] + '.json')
-        console.log(data, this)
-        setTimeout(() => {
+    LoadMovieDetail = async () => {
+        // const data = require('../json/movieDetail' + window.location.hash.split('/')[3] + '.json')
+        // setTimeout(() => {
+        //     this.setState({
+        //         isLoading: false,
+        //         moviedetail: data
+        //     })
+        // }, 1000)
+        const url = '/content/' + window.location.hash.split('/')[3]
+        const {data} = await axios.get(url)
+        for(let i in data){
+            data[i.toLowerCase()] = data[i]
+            delete data[i]
+        }
+        this.timer = setTimeout(() => {
             this.setState({
                 isLoading: false,
-                moviedetail: data
+                moviedetail: JSON.parse(data.data)
             })
-        }, 1000)
-        // const url = 'http://localhost:8000/content/' + window.location.hash.split('/')[3]
-        // fetch(url)
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         setTimeout(() => {
-        //             this.setState({
-        //                 isLoading: false,
-        //                 moviedetail: data
-        //             })
-        //         }, 500)
-        //     })
+        }, 500)
     }
 
     LandDetails = () => {
@@ -64,7 +69,7 @@ export default class MovieLists extends React.Component {
                 />
             </Spin>
         } else if (window.location.hash.split('/')[3] <= 3) {
-            // const data = JSON.parse(this.state.moviedetail.Data)
+            // const data = JSON.parse(this.state.moviedetail)
             const data = this.state.moviedetail
             return <div id="div11">
                 <h1 id="h1">{data.head}</h1>

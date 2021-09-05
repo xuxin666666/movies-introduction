@@ -1,6 +1,7 @@
 import React from 'react';
 import { Spin, Alert } from 'antd';
 import MovieCharaItem from './MovieCharaItem.jsx';
+import axios from 'axios'
 
 
 export default class MovieChara extends React.Component {
@@ -12,24 +13,31 @@ export default class MovieChara extends React.Component {
         }
     }
 
-    componentWillMount() {
-        const data = require('../json/moviechara.json');
-        setTimeout(() => {
+    async componentDidMount() {
+        // const data = require('../json/moviechara.json');
+        // setTimeout(() => {
+        //     this.setState({
+        //         moviedetail: data.subjects,
+        //         isLoading: false
+        //     })
+        // }, 500)
+        const {data} = await axios.get('/chara')
+        data.forEach(item => {
+            for(let i in item){
+                item[i.toLowerCase()] = item[i]
+                delete item[i]
+            }
+        })
+        this.timer = setTimeout(() => {
             this.setState({
-                moviedetail: data.subjects,
-                isLoading: false
+                isLoading: false,
+                moviedetail: data
             })
         }, 500)
-        // fetch('http://localhost:8000/chara')
-        // .then(response => response.json())
-        // .then(data => {
-        //     setTimeout(() => {
-        //         this.setState({
-        //             isLoading: false,
-        //             moviedetail: data
-        //         })
-        //     }, 500)
-        // })
+    }
+
+    componentWillUnmount(){
+        clearTimeout(this.timer)
     }
 
     render() {

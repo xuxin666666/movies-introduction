@@ -4,6 +4,7 @@ import MovieItem from './MovieItem.jsx';
 import '../css/movieIntro.css';
 import { Divider, Anchor } from 'antd';
 import React from 'react';
+import axios from 'axios'
 
 const { Link } = Anchor;
 
@@ -16,24 +17,31 @@ export default class MovieIntro extends React.Component {
         };
     }
 
-    componentWillMount() {
-        const data = require("../json/app.json");
-        setTimeout(() => {
+     async componentDidMount() {
+        // const data = require("../json/app.json");
+        // setTimeout(() => {
+        //     this.setState({
+        //         movies: data.subjects,
+        //         isLoading: false
+        //     })
+        // }, 500)
+        const {data} = await axios.get('/intro')
+        data.forEach(item => {
+            for(let i in item){
+                item[i.toLowerCase()] = item[i]
+                delete item[i]
+            }
+        })
+        this.timer = setTimeout(() => {
             this.setState({
-                movies: data.subjects,
-                isLoading: false
+                isLoading: false,
+                movies: data
             })
         }, 500)
-        // fetch('http://localhost:8000/intro')
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         setTimeout(() => {
-        //             this.setState({
-        //                 isLoading: false,
-        //                 movies: data
-        //             })
-        //         }, 500)
-        //     })
+    }
+
+    componentWillUnmount(){
+        clearTimeout(this.timer)
     }
 
     handleAnchorClick = (e,link) => {
